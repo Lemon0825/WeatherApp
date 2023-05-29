@@ -1,6 +1,3 @@
-//위치정보 서비스 
-//Expo는 expo-location 라이브러리를 통해 위치정보 제공
-
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import * as Location from 'expo-location';
