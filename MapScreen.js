@@ -2,7 +2,7 @@
 //expo install expo-location 패키지 설치
 //로컬맵 구현 코드
 //사용자의 위치정보를 기반으로 로컬맵 상에 마커 표시.
-//마커에는 그 장소의 기온과 날씨 표시
+//마커에는 그 장소의 기온과 날씨정보 표시
 
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -19,7 +19,7 @@ const MapScreen = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied'); //위치권한 허용 안할시 발생
+        setErrorMsg('Permission to access location was denied');   //위치권한 허용 안할시 발생
         return;
       }
 
