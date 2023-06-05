@@ -73,7 +73,7 @@ const SetPicker = () => {
       <Text> {isdate.format('yyyy|yy|MM|dd|E|HH|hh|mm|ss|a\/p')}</Text>
     </View>
 
-
+   
   );
 }
 
