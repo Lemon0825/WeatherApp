@@ -1,4 +1,5 @@
 //npm install axios
+//npm install react-native-maps
 //expo install expo-location 패키지 설치
 //로컬맵 구현 코드
 //사용자의 위치정보를 기반으로 로컬맵 상에 마커 표시.
@@ -13,13 +14,14 @@ import axios from 'axios';
 const MapScreen = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [weather, setWeather] = useState(null);
+  const [userWeather, setUserWeather] = useState(null);
+  const [seoulWeather, setSeoulWeather] = useState(null);
 
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');   //위치권한 허용 안할시 발생
+        setErrorMsg('Permission to access location was denied');
         return;
       }
 
@@ -27,12 +29,17 @@ const MapScreen = () => {
       setLocation(coords);
 
       try {
-        const response = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric`
+        const userWeatherResponse = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
-        if (response.status === 200) {
-          setWeather(response.data);
+        const seoulWeatherResponse = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+        );
+
+        if (userWeatherResponse.status === 200 && seoulWeatherResponse.status === 200) {
+          setUserWeather(userWeatherResponse.data);
+          setSeoulWeather(seoulWeatherResponse.data);
         } else {
           setErrorMsg('Failed to fetch weather data');
         }
@@ -44,10 +51,15 @@ const MapScreen = () => {
   }, []);
 
   const initialRegion = {
-    latitude: location ? location.latitude : 37.566, // 초기 지도 중심 위치의 위도 (대한민국 서울)
-    longitude: location ? location.longitude : 126.978, // 초기 지도 중심 위치의 경도 (대한민국 서울)
-    latitudeDelta: 0.0922, // 지도 영역의 세로 길이
-    longitudeDelta: 0.0421, // 지도 영역의 가로 길이
+    latitude: location ? location.latitude : 37.566,
+    longitude: location ? location.longitude : 126.978,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  };
+
+  const seoulCoordinates = {
+    latitude: 37.5665,
+    longitude: 126.9780,
   };
 
   return (
@@ -57,10 +69,17 @@ const MapScreen = () => {
           <Marker
             coordinate={{ latitude: location.latitude, longitude: location.longitude }}
             title="현재 위치"
-            description={weather ? `${weather.main.temp}°C, ${weather.weather[0].description}` : '날씨 정보를 불러오는 중...'}
+            description={userWeather ? `${userWeather.main.temp}°C, ${userWeather.weather[0].description}` : '날씨 정보를 불러오는 중...'}
           />
         )}
-        {/* 추가적인 마커들을 원하는 만큼 추가할 수 있습니다 */}
+
+        {seoulWeather && (
+          <Marker
+            coordinate={seoulCoordinates}
+            title="서울"
+            description={`${seoulWeather.name}: ${seoulWeather.main.temp}°C, ${seoulWeather.weather[0].description}`}
+          />
+        )}
       </MapView>
     </View>
   );
