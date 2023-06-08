@@ -9,7 +9,7 @@ Date.prototype.format = function(f) {
   var d = this;
   return f.replace(/(yyyy|yy|MM|dd|E|HH|hh|mm|ss|a\/p)/gi, function($1) {
     switch ($1) {
-      case "yyyy": return d.getFullYear();
+      case "yyyy": return d.getFullYear(); 
       case "yy": return String(d.getFullYear() % 1000).padStart(2, '0');
       case "MM": return String(d.getMonth() + 1).padStart(2, '0');
       case "dd": return String(d.getDate()).padStart(2, '0');
@@ -27,7 +27,9 @@ Date.prototype.format = function(f) {
 const SetPicker = ({ getSelectedDate }) => {
   const [visible, setVisible] = useState(false);
   const [pickerMode, setPickerMode] = useState('');
-  const [isdate, setDate] = useState(new Date());
+  const [isDate, setDate] = useState(new Date());
+  const [isTime, setTime] = useState(new Date());
+  const [isDateTime, setDateTime] = useState(new Date());
 
   const handleSetDate = () => {
     setVisible(true);
@@ -45,10 +47,18 @@ const SetPicker = ({ getSelectedDate }) => {
   };
 
   const handleDate = (date) => {
-    setVisible(false);
-    setDate(date);
     const formattedDate = date.format('yyyy/MM/dd'); //넘겨 받을 값 지정
     getSelectedDate(formattedDate);
+  };
+  const handleTime = (time) => {
+    const formattedTime = date.format('HH/mm'); //넘겨 받을 값 지정
+    getSelectedDate(formattedTime);
+  };
+  const handleDateTime = () => {
+    setVisible(false);
+    setDate(date);
+    const formattedTime = date.format('HH/mm'); //넘겨 받을 값 지정
+    getSelectedDate(formattedTime);
   };
 
   return (
@@ -59,13 +69,13 @@ const SetPicker = ({ getSelectedDate }) => {
       </View>
       <DateTimePickerModal
         isVisible={visible}
-        value={isdate}
+        value={isDate}
         mode={pickerMode}
         onConfirm={handleDate}
         onCancel={handleCancel}
       />
-      <Text>{isdate.format('yyyy/MM/dd/ hh시mm분 a/p')}</Text>
-      <Text>{isdate.format('yyyy|yy|MM|dd|E|HH|hh|mm|ss|a/p')}</Text>
+      <Text>{isDateTime.format('yyyy/MM/dd/ hh시mm분 a/p')}</Text>
+      <Text>{isDateTime.format('yyyy|yy|MM|dd|E|HH|hh|mm|ss|a/p')}</Text>
     </View>
   );
 };
