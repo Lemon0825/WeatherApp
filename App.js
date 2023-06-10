@@ -5,9 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
 
+
 export default function App() {
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [pollution, setPollution] = useState(null);
 
   useEffect(() => {
     fetchLocation();
@@ -17,7 +19,7 @@ export default function App() {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        console.error('위치권한이 거부되었습니다.');
+        console.error('위치 권한이 거부되었습니다.');
         return;
       }
 
@@ -27,17 +29,23 @@ export default function App() {
       setLocation({ latitude, longitude });
       fetchWeather(latitude, longitude);
     } catch (error) {
-      console.error('Error fetching location', error);
+      console.error('위치 정보를 가져오는 중에 오류가 발생했습니다.', error);
     }
   };
 
   const fetchWeather = async (latitude, longitude) => {
     try {
-      const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
-      );
+      const [weatherResponse, pollutionResponse] = await Promise.all([
+        axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=473438be829c07872a6f933caba87a50&units=metric&lang=kr`
+        ),
+        axios.get(
+          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=473438be829c07872a6f933caba87a50`
+        ),
+      ]);
 
-      setWeather(response.data);
+      setWeather(weatherResponse.data);
+      setPollution(pollutionResponse.data);
     } catch (error) {
       console.error('날씨 정보를 가져오는 중 오류가 발생했습니다.', error);
     }
@@ -45,14 +53,17 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {weather ? (
+      {weather && pollution ? (
         <View>
-          <Text>City: {weather.name}</Text>
-          <Text>Temperature: {weather.main.temp}°C</Text>
-          <Text>Description: {weather.weather[0].description}</Text>
+          <Text>위치: {weather.name}</Text>
+          <Text>온도: {weather.main.temp}°C</Text>
+          <Text>날씨: {weather.weather[0].description}</Text>
+          <Text>습도: {weather.main.humidity}%</Text>
+          <Text>풍속: {weather.wind.speed} m/s</Text>
+          <Text>미세먼지: {pollution.list[0].components.pm2_5} μg/m³</Text>
         </View>
       ) : (
-        <Text>날씨정보를 가져오는 중...</Text>
+        <Text>날씨 정보를 가져오는 중...</Text>
       )}
     </View>
   );
