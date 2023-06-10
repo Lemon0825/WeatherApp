@@ -1,4 +1,5 @@
 //npm install axios 패키지 설치
+//기온, 날씨, 습도, 풍속, 미세먼지 정보 표시
 
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -44,8 +45,8 @@ export default function App() {
         ),
       ]);
 
-      setWeather(weatherResponse.data);
-      setPollution(pollutionResponse.data);
+      setWeather(weatherResponse.data);   //날씨 정보 
+      setPollution(pollutionResponse.data);   //미세먼지 정보
     } catch (error) {
       console.error('날씨 정보를 가져오는 중 오류가 발생했습니다.', error);
     }
