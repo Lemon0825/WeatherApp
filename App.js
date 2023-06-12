@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
+import DatePicker from './DatePicker'
 
 
 export default function App() {
@@ -62,6 +63,7 @@ export default function App() {
           <Text>습도: {weather.main.humidity}%</Text>
           <Text>풍속: {weather.wind.speed} m/s</Text>
           <Text>미세먼지: {pollution.list[0].components.pm2_5} μg/m³</Text>
+          <DatePicker/>
         </View>
       ) : (
         <Text>날씨 정보를 가져오는 중...</Text>
