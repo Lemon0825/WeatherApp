@@ -7,7 +7,7 @@ import * as Location from 'expo-location';
 import axios from 'axios';
 
 
-export default function App() {
+const WeaInfo = () => {
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
   const [pollution, setPollution] = useState(null);
@@ -77,3 +77,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default WeaInfo;
