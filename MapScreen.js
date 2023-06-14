@@ -42,55 +42,55 @@ const MapScreen = () => {
 
       try {
         const userWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const seoulWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const busanWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Busan&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Busan&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const incheonWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Incheon&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Incheon&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const gangneungWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Gangneung&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Gangneung&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const chuncheonWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Chuncheon&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Chuncheon&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const daejeonWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Daejeon&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Daejeon&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const andongWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Andong&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Andong&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const daeguWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Daegu&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Daegu&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const ulsanWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Ulsan&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Ulsan&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const yeosuWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Yeosu&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Yeosu&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const gwangjuWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Gwangju&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Gwangju&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         const mokpoWeatherResponse = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=Mokpo&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?q=Mokpo&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         );
 
         if (userWeatherResponse.status === 200 || 
@@ -261,7 +261,7 @@ const MapScreen = () => {
           <Marker
             coordinate={andongCoordinates}
             title="안동"
-            description={`${andongWeather.name}: ${andongWeather.main.temp}°C, ${andongWeather.weather[0].description}`}
+            description={`${andongWeather.main.temp}°C, ${andongWeather.weather[0].description}`}
           />
         )}
 
@@ -277,7 +277,7 @@ const MapScreen = () => {
           <Marker
             coordinate={ulsanCoordinates}
             title="울산"
-            description={`${ulsanWeather.name}: ${ulsanWeather.main.temp}°C, ${ulsanWeather.weather[0].description}`}
+            description={`${ulsanWeather.main.temp}°C, ${ulsanWeather.weather[0].description}`}
           />
         )}
 

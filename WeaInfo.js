@@ -38,10 +38,10 @@ const WeaInfo = () => {
     try {
       const [weatherResponse, pollutionResponse] = await Promise.all([
         axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
         ),
         axios.get(
-          `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c`
+          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c`
         ),
       ]);
 
