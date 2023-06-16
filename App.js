@@ -19,7 +19,7 @@ function App () {
     <NavigationContainer>
       <Tab.Navigator>
       <Tab.Screen
-          name="홈"
+          name="날씨정보"
           component={WeaInfo}
           options={{
             tabBarIcon: ({}) => (
