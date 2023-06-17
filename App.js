@@ -2,13 +2,18 @@
 ////npm install @react-navigation/bottom-tabs 패키지 설치
 ////탭바 구현
 
+
+// npm install react-native-onesignal
+// onesignal API키
+// 49546381-ed36-4aaa-9e3f-2409ecaea692
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
-import DatePicker from "./DatePicker"
 import WeaInfo from "./WeaInfo"
 import MapScreen from './MapScreen';
+import DatePushAlram from "./DatePushAlram"
 
 
 
@@ -17,7 +22,7 @@ const Tab = createBottomTabNavigator();
 function App () {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName='알람설정'>
       <Tab.Screen
           name="날씨정보"
           component={WeaInfo}
@@ -32,7 +37,7 @@ function App () {
         />
       <Tab.Screen
           name="알람설정"
-          component={DatePicker}
+          component={DatePushAlram}
           options={{
             tabBarIcon: ({}) => (
               <Image
