@@ -113,7 +113,7 @@ const WeaInfo = () => {
 
       return (
         <View key={date}>
-          <Text>{moment(date).format('MM월 DD일')}  {representativeWeather.weather[0].description}  최고 기온: {maxTemp}°C, 최저 기온: {minTemp}°C</Text>
+          <Text>{moment(date).format('MM월 DD일')}  {representativeWeather.weather[0].description}   최고 기온: {maxTemp}°C, 최저 기온: {minTemp}°C</Text>
           <Text></Text>
         </View>
       );
@@ -124,10 +124,9 @@ const WeaInfo = () => {
     <View style={styles.container}>
       {weather && pollution ? (
         <View>
+          <Image source={weatherImages[weather.weather[0].description]} style={{ width: 100, height: 100 }}/>
           <Text>위치: {weather.name}</Text>
           <Text>현재 온도: {weather.main.temp}°C</Text>
-          <Image source={weatherImages[weather.weather[0].description]} style={{ width: 100, height: 100 }}/>
-          <Text>{weather.weather[0].description}</Text>
           <Text>습도: {weather.main.humidity}%</Text>
           <Text>풍속: {weather.wind.speed} m/s</Text>
           <Text>미세먼지: {pollution.list[0].components.pm2_5} μg/m³</Text>
