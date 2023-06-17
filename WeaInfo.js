@@ -2,9 +2,10 @@
 //npm install moment  패키지 설치
 //기온, 날씨, 습도, 풍속, 미세먼지 정보 표시
 //현재 날짜를 기준으로 최대 5일까지의 날씨와 최대, 최소기온 출력
+//날씨 이미지 추가
 
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image} from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import moment from 'moment';
@@ -41,7 +42,7 @@ const WeaInfo = () => {
     try {
       const [weatherResponse, forecastResponse, pollutionResponse] = await Promise.all([
         axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric`
         ),
         axios.get(
           `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=937d5f5ac02447214fd5363f3aee246c&units=metric&lang=kr`
@@ -57,6 +58,36 @@ const WeaInfo = () => {
     } catch (error) {
       console.error('날씨 정보를 가져오는 중 오류가 발생했습니다.', error);
     }
+  };
+
+  ////날씨 이미지
+  const weatherImages = {
+    'clear sky': require('./assets/clear.png'),
+
+    'light rain': require('./assets/rain.png'),
+    'moderate rain': require('./assets/rain.png'),
+    'heavy rain': require('./assets/rain.png'),
+    'drizzle': require('./assets/rain.png'),
+    'light drizzle': require('./assets/rain.png'),
+    'moderate drizzle': require('./assets/rain.png'),
+
+    'thunderstorm with light rain': require('./assets/thunder.png'),
+    'thunderstorm with rain': require('./assets/thunder.png'),
+    'thunderstorm with heavy rain': require('./assets/thunder.png'),
+
+    'few clouds': require('./assets/sun_cloud.png'),
+    'scattered clouds': require('./assets/sun_cloud.png'),
+    'broken clouds': require('./assets/sun_cloud.png'),
+    'overcast clouds': require('./assets/sun_cloud.png'),
+
+    'light snow': require('./assets/snow.png'),
+    'moderate snow': require('./assets/snow.png'),
+    'heavy snow': require('./assets/snow.png'),
+
+    'mist': require('./assets/mist.png'),
+    'fog': require('./assets/mist.png'),
+    'haze': require('./assets/mist.png'),
+    'smoke': require('./assets/mist.png'),
   };
 
   const renderForecast = () => {
@@ -82,10 +113,7 @@ const WeaInfo = () => {
 
       return (
         <View key={date}>
-          <Text>{moment(date).format('MM월 DD일')}</Text>
-          <Text>최고 기온: {maxTemp}°C</Text>
-          <Text>최저 기온: {minTemp}°C</Text>
-          <Text>날씨: {representativeWeather.weather[0].description}</Text>
+          <Text>{moment(date).format('MM월 DD일')}  {representativeWeather.weather[0].description}  최고 기온: {maxTemp}°C, 최저 기온: {minTemp}°C</Text>
           <Text></Text>
         </View>
       );
@@ -98,7 +126,8 @@ const WeaInfo = () => {
         <View>
           <Text>위치: {weather.name}</Text>
           <Text>현재 온도: {weather.main.temp}°C</Text>
-          <Text>현재 날씨: {weather.weather[0].description}</Text>
+          <Image source={weatherImages[weather.weather[0].description]} style={{ width: 100, height: 100 }}/>
+          <Text>{weather.weather[0].description}</Text>
           <Text>습도: {weather.main.humidity}%</Text>
           <Text>풍속: {weather.wind.speed} m/s</Text>
           <Text>미세먼지: {pollution.list[0].components.pm2_5} μg/m³</Text>
