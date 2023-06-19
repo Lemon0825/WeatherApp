@@ -33,7 +33,7 @@ const MapScreen = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        setErrorMsg('위치 권한이 거부되었습니다.');
         return;
       }
 
