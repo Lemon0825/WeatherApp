@@ -2,11 +2,6 @@
 ////npm install @react-navigation/bottom-tabs 패키지 설치
 ////탭바 구현
 
-
-// npm install react-native-onesignal
-// onesignal API키
-// 49546381-ed36-4aaa-9e3f-2409ecaea692
-
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -23,7 +18,7 @@ function App () {
   
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName='알람설정'>
+      <Tab.Navigator initialRouteName='asd'>
       <Tab.Screen
           name="날씨정보"
           component={WeaInfo}

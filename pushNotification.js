@@ -2,9 +2,10 @@
 
 
 import { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, Button, Platform, Alert } from 'react-native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import moment from 'moment';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -14,11 +15,14 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function PushNotification() {
+function  PushNotification(props) {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const day = moment().format("HH시 mm분");
+  
+  
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -37,6 +41,17 @@ export default function PushNotification() {
     };
   }, []);
 
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: '날씨 정보',
+        body: `jhjg ${wea} / ${day}`
+      },
+      trigger: { seconds: 2 },
+    });
+  }
+  
+  
   return (
     <View
       style={{
@@ -51,7 +66,7 @@ export default function PushNotification() {
         <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
       </View>
       <Button
-        title="Press to schedule a notification"
+        title="날씨 알람 주기"
         onPress={async () => {
           await schedulePushNotification();
         }}
@@ -60,16 +75,7 @@ export default function PushNotification() {
   );
 }
 
-async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got mail! 📬",
-      body: 'Here is the notification body',
-      data: { data: 'goes here' },
-    },
-    trigger: { seconds: 2 },
-  });
-}
+
 
 async function registerForPushNotificationsAsync() {
   let token;
@@ -102,3 +108,6 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+
+export default  PushNotification;

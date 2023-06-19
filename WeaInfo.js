@@ -9,13 +9,13 @@ import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import moment from 'moment';
-
+import PushNotification from './pushNotification';
 const WeatherInfo = () => {
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [pollution, setPollution] = useState(null);
-
+  
   useEffect(() => {
     fetchLocation();
   }, []);
@@ -156,7 +156,7 @@ const WeatherInfo = () => {
       { key: '풍속', value: `${weather.wind.speed} m/s` },
       { key: '미세먼지', value: `${pollution.list[0].components.pm2_5} μg/m³` }
     ];
-
+<PushNotification weaData={data}/>
     return (
       <FlatList
         data={data}
@@ -171,6 +171,7 @@ const WeatherInfo = () => {
       return null;
     }
 
+    console.log(weather);
     const currentDate = moment().format('YYYY-MM-DD');
     const forecastDates = forecast.list
       .map((item) => moment(item.dt_txt).format('YYYY-MM-DD'))
@@ -210,7 +211,6 @@ const WeatherInfo = () => {
           {renderWeatherInfo()}
           <Text></Text>
           <Text></Text>
-        
           <Text style={styles.title}>추가 날씨 예보</Text>
           {renderForecast()}
         </View>
