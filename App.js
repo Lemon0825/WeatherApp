@@ -18,7 +18,7 @@ function App () {
   
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName='asd'>
+      <Tab.Navigator>
       <Tab.Screen
           name="날씨정보"
           component={WeaInfo}

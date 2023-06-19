@@ -156,7 +156,6 @@ const WeatherInfo = () => {
       { key: '풍속', value: `${weather.wind.speed} m/s` },
       { key: '미세먼지', value: `${pollution.list[0].components.pm2_5} μg/m³` }
     ];
-<PushNotification weaData={data}/>
     return (
       <FlatList
         data={data}
@@ -170,8 +169,6 @@ const WeatherInfo = () => {
     if (!forecast) {
       return null;
     }
-
-    console.log(weather);
     const currentDate = moment().format('YYYY-MM-DD');
     const forecastDates = forecast.list
       .map((item) => moment(item.dt_txt).format('YYYY-MM-DD'))
