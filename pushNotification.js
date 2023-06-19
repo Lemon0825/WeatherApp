@@ -2,7 +2,7 @@
 
 
 import { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, Alert } from 'react-native';
+import { View, Button, Platform } from 'react-native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications'; //알림
 import * as Location from 'expo-location' // 위치 정보

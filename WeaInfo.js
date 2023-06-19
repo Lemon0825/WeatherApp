@@ -9,7 +9,7 @@ import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import moment from 'moment';
-import PushNotification from './pushNotification';
+
 const WeatherInfo = () => {
   const [location, setLocation] = useState(null);
   const [weather, setWeather] = useState(null);
