@@ -55,11 +55,6 @@ function App () {
             ),
           }}
         />
-        <Tab.Screen
-          name="asd"
-          component={PushNotification}
-          
-        />
     </Tab.Navigator>
     </NavigationContainer>
   );
