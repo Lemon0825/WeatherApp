@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button,Alert, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Button,Alert, FlatList, StyleSheet } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { format } from 'date-fns';
 
@@ -42,14 +42,14 @@ const DatePushAlram = () => {
   };
 
   const renderItem = ({ item }) => (
-    <View>
+    <View style = {{flexDirection:'row'}}>
       <Text>{item.date}</Text>
-      <Button title="삭제" onPress={() => removeItemFromList(item.id)} />
+      <Button title="삭제" onPress={() => removeItemFromList(item.id)} color={"red"} />
     </View>
   );
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="datetime"
@@ -57,12 +57,12 @@ const DatePushAlram = () => {
         onCancel={hideDatePicker}
       />
       <Button title="날짜 선택" onPress={showDatePicker} />
-      <View style = {{flexDirection: 'row', alignContent: 'space-between'}}>
-        <View style = {{flex: 1}}>
-         <Text>{selectedDate ? format(selectedDate, 'MM월 dd일 / HH시 mm분') : '날짜를 선택해주세요.'}</Text>
+      <View style = {{flexDirection: 'row', alignContent: 'space-between', width:250,borderWidth:2,}}>
+        <View style = {{flex: 1, alignItems:'center'}}>
+         <Text style = {{fontSize:20,}}>{selectedDate ? format(selectedDate, 'MM월 dd일 / HH시 mm분') : '날짜를 선택해주세요.'}</Text>
         </View>
         <View>
-         <Button title="알람 추가" onPress={addItemToList} />
+         <Button title="알람 추가" onPress={addItemToList} color={"#c17ecd"}/>
         </View>
       </View>
       <FlatList
@@ -73,5 +73,18 @@ const DatePushAlram = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        marginTop:10,
+    },
+    fontStyle:{
+        fontSize: 20,
+    }
+})
+
 
 export default DatePushAlram;

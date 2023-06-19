@@ -14,12 +14,13 @@ import { Image } from 'react-native';
 import WeaInfo from "./WeaInfo"
 import MapScreen from './MapScreen';
 import DatePushAlram from "./DatePushAlram"
-
+import PushNotification from './pushNotification';
 
 
 const Tab = createBottomTabNavigator();
 
 function App () {
+  
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName='알람설정'>
@@ -58,6 +59,11 @@ function App () {
               />
             ),
           }}
+        />
+        <Tab.Screen
+          name="asd"
+          component={PushNotification}
+          
         />
     </Tab.Navigator>
     </NavigationContainer>
